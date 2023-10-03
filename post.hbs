@@ -6,7 +6,10 @@
 <div class="progress-container">
 	<span class="progress-bar"></span>
 </div>
-
+<link
+  rel="stylesheet"
+  href="https://static.hyh.ink/npm/@waline/client@v2/dist/waline.css"
+/>
 <header class="post-header {{#if feature_image}} has-cover {{/if}}">
 	<div class="inner">
 		<span class="post-info">
@@ -82,6 +85,17 @@
 
 			{{#if @custom.disqus_shortname}}
 			<section class="post-comments">
+			<script type="module">
+					import { init } from 'https://static.hyh.ink/npm/@waline/client@v2/dist/waline.mjs';
+			var serverURL = '{{@custom.disqus_shortname}}';
+            init({
+              el: '#disqus_thread',
+              serverURL: serverURL,
+              dark:'auto',
+              reaction: true,
+              turnstileKey: '0x4AAAAAAALCEyTTIQ9Gqx2p',
+            });
+             </script>
 			   <div id="disqus_thread"></div>
 			</section>
 			{{/if}}
@@ -186,19 +200,7 @@
 	    }
 	  });
 
-		{{#if @custom.disqus_shortname}}
-			var disqus = '{{@custom.disqus_shortname}}';
-	    function launchDisqus() {
-	      $.ajax({
-	        type: "GET",
-	        url: "//" + disqus + ".disqus.com/embed.js",
-	        dataType: "script",
-	        cache: true
-	      });
-	      $(this).parent().addClass('activated');
-	    }
-			launchDisqus();
-		{{/if}}
+
   });
 </script>
 {{/contentFor}}
